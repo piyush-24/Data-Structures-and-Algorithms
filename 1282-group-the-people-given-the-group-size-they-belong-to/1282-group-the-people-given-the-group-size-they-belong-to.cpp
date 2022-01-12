@@ -1,29 +1,18 @@
 class Solution {
 public:
-    vector<vector<int>> groupThePeople(vector<int>& gs)
+    vector<vector<int>> groupThePeople(vector<int>& gz)
     {
-        vector<vector<int>> v;
-        unordered_map<int, vector<int>> m;
-        for(int i=0;i<gs.size();i++)
-            m[gs[i]].push_back(i);
-        
-        for(auto it:m)
-        {
-           int x=it.second.size()/it.first;
-            while(x)
+        vector<vector<int>> res, groups(gz.size() + 1);
+          for (auto i = 0; i < gz.size(); ++i) 
+          {
+            groups[gz[i]].push_back(i);
+              
+            if (groups[gz[i]].size() == gz[i]) 
             {
-                int z=it.first;
-                 vector<int> temp;
-                while(z)
-                {
-                    temp.push_back(it.second.back());
-                    it.second.pop_back();
-                    z--;
-                }
-                v.push_back(temp);
-                x--;
+              res.push_back({});
+              swap(res.back(), groups[gz[i]]);
             }
-        }
-        return v;
+          }
+          return res;
     }
 };
