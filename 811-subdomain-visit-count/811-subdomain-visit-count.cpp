@@ -10,7 +10,7 @@ public:
             int n    = stoi (word.substr (0, i)); 
             string s = word.substr (i+1, word.size ()-i-1);
 
-            for (int i = s.size ()-1; i >= 0; i--) 
+            for (i = s.size ()-1; i >= 0; i--) 
             {
                 if (s[i] == '.') 
                     m[s.substr (i+1, s.size ()-i-1)] += n; 
