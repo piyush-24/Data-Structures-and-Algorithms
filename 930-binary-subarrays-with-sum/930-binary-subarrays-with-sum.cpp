@@ -1,26 +1,21 @@
 class Solution {
 public:
-     int atmost(vector<int>& nums, int k)
-    {
-         if(k<0)
-             return 0;
-         int j=0,i=0,n=nums.size();
-         int s=0,c=0;
-        while(j<n)
-        {
-           k-=nums[j];
-           while(k<0)
-           {
-              k+=nums[i];
-                   i++;
-           }
-            c+=j-i+1;
-            j++;
-        }
-        return c;
-    }
+     
     int numSubarraysWithSum(vector<int>& nums, int k)
     {
-       return(atmost(nums,k)-atmost(nums,k-1));
+       unordered_map<int,int> m;
+        m[0]=1;
+        int len=nums.size();
+        int s=0,c=0;
+        for(int i=0;i<len;i++)
+        {
+            s+=nums[i];
+            if(m[s-k]>0)
+            {
+                c+=m[s-k];
+            } 
+             m[s]++;
+        }
+        return c;
     }
 };
