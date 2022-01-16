@@ -2,22 +2,12 @@ class Solution {
 public:
     vector<int> rearrangeArray(vector<int>& nums) 
     {
-       int n = nums.size();
-        
-        // Move left to right and fix
-        for (int i = 1; i < n - 1; i++) 
+        for(int i=1;i+1<nums.size();i++)
         {
-
-            if (2*nums[i] == (nums[i-1] + nums[i+1]))
-                swap(nums[i], nums[i+1]);
-        }
-        
-        // Move right to left and fix
-        for (int i = nums.size() - 2; i > 0; i--) 
-        {
-
-            if (2*nums[i] == (nums[i-1] + nums[i+1]))
-                swap(nums[i], nums[i-1]);
+            int x=nums[i-1],y=nums[i],z=nums[i+1];
+            
+                if((x<y && y<z)  or (x>y && y>z)) 
+                    swap(nums[i],nums[i+1]);
         }
         return nums;
     }
