@@ -2,12 +2,33 @@ class Solution {
 public:
     int minPairSum(vector<int>& nums)
     {
-        sort(begin(nums),end(nums));
-        int n=nums.size(),maxi=0,s=0;
-        for(int i=0;i<n/2;i++)
+        int arr[100001]={0};
+        for(int i:nums)
+            arr[i]++;
+
+        int i=0,j=100000,min_max_pair_sum=0;
+        
+        while(i<=j)
         {
-            maxi=max(nums[i]+nums[n-i-1],maxi);
+            if(arr[i] == 0)
+            {
+                i++;
+                continue;
+            }
+            else if(arr[j] == 0)
+            {
+                j--;
+                continue;
+            }
+            else
+            {
+                if(i+j > min_max_pair_sum)
+                    min_max_pair_sum = i+j;
+                
+                arr[i]--;
+                arr[j]--; 
+            }
         }
-        return maxi;
+        return min_max_pair_sum;
     }
 };
