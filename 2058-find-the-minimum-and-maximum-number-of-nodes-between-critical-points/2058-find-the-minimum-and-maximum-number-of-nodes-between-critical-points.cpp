@@ -18,32 +18,31 @@ public:
 
     vector<int> nodesBetweenCriticalPoints(ListNode* head)
     {
-        if(head->next->next==NULL)
+        ListNode *prev=head;
+        head=head->next;
+        int i=1,mindist=INT_MAX,prev_i=INT_MIN,first_i=-1;
+        
+        while(head->next)
+        {
+            if((prev->val < head->val and head->val > head->next->val) ||( prev->val > head->val and head->val < head->next->val))
+            {
+                if(prev_i!=INT_MIN) 
+                    mindist=min(mindist,i-prev_i);
+                
+                if(first_i==-1) 
+                    first_i=i;
+                
+                prev_i=i;
+            }
+            prev=head;
+            head=head->next;
+            i++;
+        }
+        
+        if(mindist==INT_MAX) 
             return {-1,-1};
         
-        ListNode* prev=head;
-        ListNode* temp=head->next;
-        ListNode* nxt=head->next->next;
-        int c=1;
-        vector<int> v;
-        while(nxt!=NULL)
-        {
-            if((prev->val>temp->val && nxt->val>temp->val) || (prev->val<temp->val && nxt->val<temp->val) )
-                v.push_back(c);
-            prev=temp;
-            nxt=nxt->next;
-            temp=temp->next;
-            c++;
-        }
-        if(v.size()<=1)
-            return {-1,-1};
-        
-        int mini=INT_MAX;
-        for(int i=1;i<v.size();i++)
-        {
-            mini=min(mini,abs(v[i]-v[i-1]));
-        }
-        return {mini,v[v.size()-1]-v[0]};
+        return {mindist,prev_i-first_i};
         
     }
 };
