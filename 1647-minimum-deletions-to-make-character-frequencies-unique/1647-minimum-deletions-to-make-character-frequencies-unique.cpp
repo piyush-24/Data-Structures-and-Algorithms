@@ -2,27 +2,30 @@ class Solution {
 public:
     int minDeletions(string s) 
     {
-        unordered_map<char,int> m;
-        for(auto x:s)
-            m[x]++;
+        int ans = 0;
         
-        unordered_set<int> st;
-        int c=0;
-        for(auto it:m)
+        unordered_set<int> usedFreqs;
+        vector<int> count(26, 0);
+        
+        for (auto& c : s) 
+            ++count[c - 'a'];
+        
+        
+        for (int i = 0; i < 26; ++i)
         {
-            
-            while(st.find(it.second)!=st.end())
+            while (count[i] > 0)
             {
-                if(it.second==1)
+                if (usedFreqs.find(count[i]) == usedFreqs.end()) 
                 {
-                    c++;
+                    usedFreqs.insert(count[i]);
                     break;
                 }
-                c++;
-                it.second--;
-            }   
-            st.insert(it.second);
+                
+                --count[i];
+                ++ans;
+            }
         }
-        return (c==0)?0:c;
+        
+        return ans;
     }
 };
