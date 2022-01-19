@@ -20,6 +20,6 @@ public:
             pq.pop();
         }
         
-        return pq.size();       
+        return (pq.size());  
     }
 };
