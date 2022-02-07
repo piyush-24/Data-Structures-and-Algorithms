@@ -1,15 +1,21 @@
 class Solution {
 public:
-    vector<int> countBits(int n) 
+    vector<int> countBits(int num) 
     {
-        int i=0;
-        vector<int> ans;
-        while(i<=n)
+       vector<int> res(num);
+        res.push_back(0);  // for num=0
+        
+        if(num==0) 
+            return res;
+        
+        for(int i=1;i<=num;i++)
         {
-            bitset<32> b(i);
-            ans.push_back(b.count());
-            i++;
+            if(i%2==0)
+                res[i]=res[i/2];
+             else 
+                res[i]=res[i-1]+1;
+            
         }
-        return ans;
+        return res;
     }
 };
