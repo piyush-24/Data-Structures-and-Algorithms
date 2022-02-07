@@ -1,14 +1,16 @@
 class Solution {
 public:
     uint32_t reverseBits(uint32_t n) {
-         bitset<32> bs{n};
-        int l=0, r=31;
-        while(l < r) 
+        int pos=0,ans=0;
+        while(n)
         {
-        bool tmp = bs[l];
-        bs[l++] = bs[r];
-        bs[r--] = tmp;
-       }
-     return bs.to_ulong();
+            if(n%2)
+            {
+                ans+=(1<<(31-pos));    
+            }
+            n=n>>1;
+            pos++;
+        }
+        return ans;
     }
 };
