@@ -10,19 +10,17 @@ public:
 }
     int countNicePairs(vector<int>& nums) 
     {
-        long count = 0;
-	unordered_map<int, long> mp;
-        
-	for(auto& num : nums) 
-        mp[num - rev(num)]++;   
-        
-	for(auto& pair : mp)  
-    {
-        count+=((pair.second*(pair.second-1))/2); 
-        count=count%1000000007;
-    }
-		
-	
-	return count;
+            long count = 0;
+        unordered_map<int, long> mp;
+
+        for(auto& pair : nums)  
+        {
+            count+=mp[pair- rev(pair)]; 
+            count=count%1000000007;
+            mp[pair - rev(pair)]++;
+        }
+
+
+        return count;
     }
 };
