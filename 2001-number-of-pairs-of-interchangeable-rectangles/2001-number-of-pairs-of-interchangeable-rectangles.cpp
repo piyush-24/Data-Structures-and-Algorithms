@@ -1,16 +1,20 @@
 class Solution {
 public:
-    long long interchangeableRectangles(vector<vector<int>>& r)
+    long long interchangeableRectangles(vector<vector<int>>& rectangles)
     {
-        unordered_map<long double,int> m;
-        long long c=0;
-        for(int i=0;i<r.size();i++)
+           long long result = 0;
+        map<pair<int, int>, int> mp;
+
+        for (auto& rect : rectangles)
         {
-           long double x=(double)r[i][1]/(double)r[i][0];
-            if(m.find(x)!=m.end())
-                c+=(m[x]);
-            m[x]++;
+            int gcd = __gcd(rect[0], rect[1]);
+            pair<int, int> key = {rect[0]/gcd, rect[1]/gcd};
+            
+            if(mp.find(key) != mp.end()) 
+                result += mp[key];
+            mp[key]++;
         }
-        return c;
+
+        return result;
     }
 };
