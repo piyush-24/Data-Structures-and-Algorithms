@@ -1,49 +1,34 @@
 class Solution {
 public:
-    int dp[105][105][205];
-    bool isValid(int i, int j, vector<vector<char>>& grid)
+    int n, m;
+    int dp[100][100][205];
+    bool solve(vector<vector<char>>& grid, int i, int j, int k)
     {
-        return (i>=0 && i<grid.size() && j>=0 && j<grid[0].size());
-    }
-    bool f(int i, int j, vector<vector<char>>& grid, int bal)
-    {
-        int bal1=bal;
+        if(i>=n || j>=m)
+            return 0;
         
-        if(bal<0)
-            return false;
-        
-        if(dp[i][j][bal]!=-1)
-            return dp[i][j][bal];
-        
-        
-            
         if(grid[i][j]=='(')
-            bal1++;
+            k++;
         else
-            bal1--;
+            k--;
         
-        
-        int n=grid.size(), m=grid[0].size();
+        if(k<0)
+            return 0;
         
         if(i==n-1 && j==m-1)
-            return (bal1==0);
+            return (k==0);
         
-        bool l=false,d=false;
-        if(isValid(i,j+1,grid))
-            l=f(i,j+1,grid,bal1);
-        if(isValid(i+1,j,grid))
-            d=f(i+1,j,grid,bal1);
+        if(dp[i][j][k]!=-1)
+            return dp[i][j][k];
         
-        return dp[i][j][bal]=(l || d);
-            
+        return dp[i][j][k]=(solve(grid, i+1, j, k) | solve(grid, i, j+1, k));
     }
-    bool hasValidPath(vector<vector<char>>& grid) 
+    
+    bool hasValidPath(vector<vector<char>>& grid)
     {
-        for(int i=0;i<105;i++)
-            for(int j=0;j<105;j++)
-                for(int k=0;k<205;k++)
-                       dp[i][j][k]=-1;
-        
-        return f(0,0,grid,0);
+        n=grid.size();
+        m=grid[0].size();
+        memset(dp, -1, sizeof(dp));
+        return solve(grid, 0, 0, 0);
     }
 };
