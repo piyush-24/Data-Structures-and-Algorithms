@@ -1,25 +1,27 @@
 class Solution {
 public:
-    vector<vector<int>> res;
-    void dfs(int node, int d, vector<vector<int>>& graph, vector<int> v)
-    {
-        v.push_back(node);
-        if(node==d)
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& G) {
+        vector<vector<int>> ans;
+        queue<vector<int>> q;
+        q.push({0});                                                   // starting node of every path
+        while(size(q)) 
         {
-            res.push_back(v);
-            return;
-        }
+            auto path = move(q.front());
+            q.pop();
+            
+            if(path.back() == size(G)-1) 
+                ans.push_back(move(path));    // found valid path
+            else
+            {
+                for(auto child : G[path.back()]) 
+                {                     // try every possible next node in path
+                    path.push_back(child);
+                    q.push(path);                                      // push path into queue for further exploration
+                    path.pop_back();
+                }
+            }
+        }     
         
-        for(auto x:graph[node])
-        {
-            dfs(x,d,graph,v);
-        }
-    }
-    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) 
-    {
-        vector<int> v;
-        int n=graph.size();
-        dfs(0,n-1,graph,v);
-        return res;
+        return ans;
     }
 };
