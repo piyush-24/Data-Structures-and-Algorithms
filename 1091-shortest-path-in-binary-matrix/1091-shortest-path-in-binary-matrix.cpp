@@ -1,50 +1,43 @@
 class Solution {
-private:
-	vector<pair<int, int>> dir = {{ -1, 0}, {1, 0}, { 0, -1}, {0, 1}, { -1, -1}, {1, -1}, { -1, 1}, { 1, 1}};
 public:
-    
-	int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
-		int n = grid.size();
-		int m = grid[0].size();
+    int n;
+    int dx[8] = {-1,-1,-1,0,0,1,1,1};
+    int dy[8] = {-1,0,1,-1,1,-1,0,1};
+   
+    int shortestPathBinaryMatrix(vector<vector<int>>& grid)
+    {
+        n = grid.size();
         
-        if(n==1 && m==1)
-        {
-            if(grid[0][0])
-                return -1;
-            else
-                return 1;
-        }
-        
-        int temp = grid[n - 1][m - 1];
-		queue<pair<int, int>> q; // {i,j}
-        
-	   if(!grid[0][0]) 
-           q.emplace(0, 0);
-        
-		while (!q.empty())
-        {
-			int sz = q.size();
-			while (sz--) 
-            {
-				auto [r, c] = q.front();
-				q.pop();
-                
-				for (auto &e : dir) 
-                {
-					int nr = r + e.first;
-					int nc = c + e.second;
-                    
-					if (nc < 0 || nr < 0 || nc >= m || nr >= n || grid[nr][nc] != 0) 
-                        continue;
-                    
-					grid[nr][nc] = grid[r][c] + 1;
-                    q.emplace(nr, nc);
-				}
-			}
-		}
-        if(grid[n - 1][m - 1]== temp)
+        if (grid[0][0]==1 || grid[n-1][n-1]) 
             return -1;
         
-		return grid[n - 1][m - 1] + 1;
-	}
+        queue<pair<pair<int,int>,int>> q;
+        q.push({{0,0},1});
+        grid[0][0] = 1 ;
+        
+        while(!q.empty()) 
+        {
+            int i= q.front().first.first;
+            int j = q.front().first.second;
+            int st = q.front().second;
+            q.pop();
+            if (i == n- 1 && j == n-1)
+            {
+                return st;
+            }
+            
+            for(int k= 0 ;k <8;k++)
+            {
+                int x = i + dx[k];
+                int y = j +dy[k];
+                
+                if(x>=0 && x <n && y >=0 && y <n && grid[x][y] == 0 ) 
+                {
+                    grid[x][y] = 1;
+                    q.push({{x,y},st+1});
+                }
+            }
+        }
+        return -1;
+    }
 };
