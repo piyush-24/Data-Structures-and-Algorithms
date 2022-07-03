@@ -22,7 +22,7 @@ public:
         if(n>2){
             for(int i=1;i<nums1.size()-1;i++){
                 if( (nums1[i]>nums1[i-1] && nums1[i]>nums1[i+1]) || (nums1[i]<nums1[i-1] && nums1[i]<nums1[i+1]) ){
-                    continue;
+                    ;
                 }
                 else cc++;
             }
