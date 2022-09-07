@@ -11,17 +11,20 @@
  */
 class Solution {
 public:
-    string tree2str(TreeNode* root)
+string tree2str(TreeNode* root) 
+{
+    string sub = to_string(root->val);
+        
+    if (root->left) //left check
+        sub += "(" + tree2str(root->left) + ")";
+        
+    if (root->right)  //right check
     {
-        if(!root)
-            return "";
-        string s=to_string(root->val);
-        if(root->left)
-            s+="("+ tree2str(root->left) + ")";
-        else if(root->right)
-            s+="()";
-        if(root->right)
-            s+="("+ tree2str(root->right) + ")";
-        return s;
+        if (!root->left) 
+            sub += "()"; //left not present, but right present
+        
+        sub += "(" + tree2str(root->right) + ")"; 
     }
+    return sub;
+}
 };
