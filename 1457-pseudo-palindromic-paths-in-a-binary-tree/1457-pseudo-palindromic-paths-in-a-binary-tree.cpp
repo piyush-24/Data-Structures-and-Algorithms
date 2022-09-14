@@ -11,9 +11,9 @@
  */
 class Solution {
 public:
-    int res=0;
-    unordered_map<int, int> m;
-    void rec(TreeNode* root) 
+    int res=0,n=11;
+    
+    void rec(TreeNode* root, vector<int> m) 
     {
         if (!root)
             return;
@@ -25,20 +25,21 @@ public:
         {
             int odd = 0;
             for (auto a : m)
-                if (a.second % 2 == 1)
+                if (a % 2 == 1)
                     odd++;
 
             if (odd <= 1)
                 res++;
         }
         
-        rec(root->left);
-        rec(root->right);
+        rec(root->left, m);
+        rec(root->right, m);
         m[root->val]--;
     }
     int pseudoPalindromicPaths (TreeNode* root) 
     {
-       rec(root); 
+        vector<int> m(11,0);
+       rec(root,m); 
         return res;
     }
 };
