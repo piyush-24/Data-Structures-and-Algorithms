@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    int height(TreeNode* root, unordered_map<int, int>& l, unordered_map<int, int>& r)
+    int height(TreeNode* root, map<int, int>& l, map<int, int>& r)
     {
         if(!root)
             return 0;
@@ -24,7 +24,7 @@ public:
         
         return 1+max(lh,rh);
     }
-    void solve(TreeNode* root, int maxi, unordered_map<int, int>& l, unordered_map<int, int>& r, unordered_map<int, int>& h,int d)
+    void solve(TreeNode* root, int maxi, map<int, int>& l, map<int, int>& r, map<int, int>& h,int d)
     {
         if(!root)
             return ;
@@ -37,7 +37,7 @@ public:
     }
     vector<int> treeQueries(TreeNode* root, vector<int>& queries)
     {
-        unordered_map<int, int> l,r,h;
+        map<int, int> l,r,h;
         height(root,l,r);
         solve(root->left,  r[root->val],l,r,h,1);
         solve(root->right, l[root->val],l,r,h,1);
