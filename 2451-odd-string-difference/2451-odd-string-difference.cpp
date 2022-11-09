@@ -1,26 +1,22 @@
-class Solution {
+class Solution 
+{
 public:
-    string oddString(vector<string>& words) {
-        unordered_map<string, int> mp;
-        unordered_map<string, string> amp;
-        for(auto w: words)
-        { 
-            string s = ""; 
-            for(int j = 0; j < w.size()-1; ++j)
-            {   
-                //concatenate each nuber with a "_" in between
-                int t = w[j+1] - w[j];
-                s += to_string(t) + "_";
-            }
-            mp[s]++;   //add it to map and increament the value
-            amp[s] = w;   //preserve the original string reference
+    string oddString(vector<string>& words) 
+    {
+        map<vector<int>,vector<string>> eq;
+        
+        for (string w : words)
+        {
+            vector<int> diff;
+            for (int i = 1; i < w.size(); ++i)
+                diff.push_back(w[i]-w[i-1]);
+            eq[diff].push_back(w);
         }
-        for(auto m: mp)
-        {  
-            //scan for string with count equal to 1 ( unique string )
-            
-            if(m.second == 1) return amp[m.first];   //return original string when found
-        }
-        return "";
+        
+        for (auto&[_, ws] : eq)
+            if (ws.size() == 1)
+                return ws[0];
+        
+        return words[0]; // unreachable
     }
 };
