@@ -2,7 +2,7 @@ class Solution {
 public:
 string removeDuplicates(string s, int k) 
 {
-      vector<pair<char, short>> st;
+      vector<pair<char, int>> st;
       string res;
       for (auto ch : s)
       {
