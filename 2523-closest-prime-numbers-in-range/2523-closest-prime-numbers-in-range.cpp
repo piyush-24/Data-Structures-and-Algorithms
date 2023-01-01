@@ -25,10 +25,9 @@ public:
         
         for(int i=0;i<arr.size()-1;i++)
         {
-            if((arr[i+1]-arr[i]) < mn)
+            if((arr[i+1]-arr[i])==1 || (arr[i+1]-arr[i])==2 )
             {
-                mn = (arr[i+1]-arr[i]);
-                ind = i;
+                return {arr[i], arr[i+1]};    
             }
         }
         return {arr[ind],arr[ind+1]};
