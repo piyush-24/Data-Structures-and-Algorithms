@@ -4,7 +4,7 @@ public:
         
         int n=grid.size();
         
-        map<string, int> st;
+        unordered_map<string, int> st;
         
         for(int i=0;i<n;i++)
         {
