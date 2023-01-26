@@ -23,7 +23,7 @@ public:
                 int cdist=q.front().second;
                 q.pop();
                 
-                 if(cdist>dist[cnode])
+                 if(cdist>dist[cnode]) // this optimization needed, warna gives TLE
                     continue;
                
                 dist[cnode]=cdist;
