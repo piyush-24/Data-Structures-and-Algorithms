@@ -30,6 +30,8 @@ public:
                 
                 for(auto e : graph[cnode])
                 {
+                    if(e.second+cdist>ans)     // optimization added, not necessary
+                        continue;
                     
                     if(e.first==dst) 
                         ans=min(ans, e.second+cdist);
