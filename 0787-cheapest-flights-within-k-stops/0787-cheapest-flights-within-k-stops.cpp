@@ -23,9 +23,9 @@ public:
                 int cdist=q.front().second;
                 q.pop();
                 
-                if(cdist>dist[cnode])
+                 if(cdist>dist[cnode])
                     continue;
-                
+               
                 dist[cnode]=cdist;
                 
                 for(auto e : graph[cnode])
